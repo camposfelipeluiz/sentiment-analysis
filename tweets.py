@@ -12,7 +12,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, wait_on_rate_limit=True)
 
 list_= []
-public_tweets = tweepy.Cursor(api.search, tweet_mode='extended', q='trump -filter:retweets', 
+public_tweets = tweepy.Cursor(api.search, tweet_mode='extended', q='your query -filter:retweets', 
                               lang='en', since = '2020-02-25').items(1000)
 for tweet in public_tweets:
     analysis = TextBlob(tweet.full_text)
