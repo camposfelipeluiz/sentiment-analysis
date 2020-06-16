@@ -1,7 +1,7 @@
 import tweepy
 import pandas as pd
 
-def get_followers(*users):
+def followers_count(*users):
 
     consumer_key = ''
     consumer_secret = ''
@@ -11,12 +11,14 @@ def get_followers(*users):
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
 
-    usuarios = []
+    screen_names = []
     for user in users:
         user = api.get_user(str(user))._json
-        usuarios.append(user)
-        k = len(usuarios)
+        screen_names.append(user)
+        
+        k = len(screen_names)
         for k in range(0,k):
-            nome = usuarios[k]['screen_name']
+            name = usuarios[k]['screen_name']
             followers = usuarios[k]['followers_count']
+        
         print(f'{nome}: {followers}')
