@@ -1,3 +1,7 @@
+import tweepy
+from textblob import TextBlob
+import pandas as pd
+
 def sentiment(query, since, until, items):
     
     consumer_key = ''
