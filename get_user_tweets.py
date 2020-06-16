@@ -1,7 +1,7 @@
 import tweepy
 import pandas as pd
 
-def get_user_tweets(user, items):
+def get_user_tweets(user, items=100):
     
     consumer_key = ''
     consumer_secret = ''
