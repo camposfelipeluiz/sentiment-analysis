@@ -36,3 +36,6 @@ def sentiment(query, since, until, items):
     
     
     return df
+
+
+df = sentiment()
