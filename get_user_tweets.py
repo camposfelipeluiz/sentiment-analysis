@@ -24,5 +24,8 @@ def get_user_tweets(user, items=100):
     df['rts/likes'] = df['retweet_count']/df['favorite_count']
     
     return df
+
+
+df = get_user_tweets()
    
     
