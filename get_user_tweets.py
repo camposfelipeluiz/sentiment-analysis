@@ -14,18 +14,14 @@ def get_user_tweets(user, items=100):
     public_tweets = tweepy.Cursor(api.user_timeline, tweet_mode='extended', screen_name=user).items(items)
     for tweet in public_tweets:
         if 'RT @' not in tweet.full_text:
-            dict_ = {'screen_name': tweet.user.screen_name, 'tweet': tweet.full_text, 
-                     'created_at': tweet.created_at, 'favorite_count': tweet.favorite_count,  
-                     'retweet_count': tweet.retweet_count}
+            dict_ = {'screen_name': tweet.user.screen_name, 'tweet': tweet.full_text, 'created_at': tweet.created_at, 'favorite_count': tweet.favorite_count,  'retweet_count': tweet.retweet_count}
             list_.append(dict_)
     df = pd.DataFrame(list_)
-    
     df['date'] = df['created_at'].apply(lambda x:x.date())
+    df['time'] = df['created_at'].apply(lambda x:x.time())
+    df['created_at'] = df['created_at'].apply(lambda x:x.strftime('%Y-%m-%d %H:%M'))
     df['rts/likes'] = df['retweet_count']/df['favorite_count']
+    df['rts/likes'] = df['rts/likes'].round(2)
     
     return df
-
-
-df = get_user_tweets()
-   
     
