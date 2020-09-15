@@ -24,7 +24,7 @@ def sentiment(query, since, until, items):
         subjectivity = analysis.sentiment.subjectivity
         retweet_count = tweet.retweet_count
         
-        if (retweet_count > 0) and (polarity != 0 or subjectivity != 0):
+        elif (retweet_count > 0) and (polarity != 0 or subjectivity != 0):
             dict_ = {'screen_name': tweet.user.screen_name, 
                  'tweet': tweet.full_text, 'date': tweet.created_at, 'polarity': polarity, 'subjectivity': subjectivity, 'favorite_count': tweet.favorite_count,
                  'retweet_count': tweet.retweet_count}
