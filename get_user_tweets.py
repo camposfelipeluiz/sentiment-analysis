@@ -12,7 +12,7 @@ def get_user_tweets(user1, user2,  user1_items=100, user2_items=100):
     api = tweepy.API(auth)
     
     list1= []
-    public_tweets1 = tweepy.Cursor(api.user_timeline, tweet_mode='extended', screen_name=user1).items(items1)
+    public_tweets1 = tweepy.Cursor(api.user_timeline, tweet_mode='extended', screen_name=user1).items(user1_items)
     for tweet in public_tweets1:
         if 'RT @' not in tweet.full_text:
             dict1 = {'screen_name': tweet.user.screen_name, 'tweet': tweet.full_text, 'created_at': tweet.created_at, 'favorite_count': tweet.favorite_count,  'retweet_count': tweet.retweet_count}
@@ -25,7 +25,7 @@ def get_user_tweets(user1, user2,  user1_items=100, user2_items=100):
     df1['rts/likes'] = df1['rts/likes'].round(2)
     
     list2 = []
-    public_tweets2 = tweepy.Cursor(api.user_timeline, tweet_mode='extended', screen_name=user2).items(items2)
+    public_tweets2 = tweepy.Cursor(api.user_timeline, tweet_mode='extended', screen_name=user2).items(user2_items)
     for tweet in public_tweets2:
         if 'RT @' not in tweet.full_text:
             dict2 = {'screen_name': tweet.user.screen_name, 'tweet': tweet.full_text, 'created_at': tweet.created_at, 'favorite_count': tweet.favorite_count,  'retweet_count': tweet.retweet_count}
