@@ -1,7 +1,3 @@
-import tweepy
-from textblob import TextBlob
-import pandas as pd
-
 def sentiment(query, since, until, items):
     
     consumer_key = ''
@@ -17,13 +13,11 @@ def sentiment(query, since, until, items):
     public_tweets = tweepy.Cursor(api.search, tweet_mode='extended', q=query, 
                               lang='en', since=since, until=until).items(items)
     for tweet in public_tweets:
-        
-        if 'RT @' not in tweet.full_text:
-            analysis = TextBlob(tweet.full_text)
-            polarity = analysis.sentiment.polarity
-            subjectivity = analysis.sentiment.subjectivity
-            
-        elif (retweet_count > 0) and (polarity != 0 or subjectivity != 0):
+        analysis = TextBlob(tweet.full_text)
+        polarity = analysis.sentiment.polarity
+        subjectivity = analysis.sentiment.subjectivity
+        retweet_count = tweet.retweet_count
+        if (retweet_count > 0) and (polarity != 0 or subjectivity != 0):
             dict_ = {'screen_name': tweet.user.screen_name, 
                  'tweet': tweet.full_text, 'date': tweet.created_at, 'polarity': polarity, 'subjectivity': subjectivity, 'favorite_count': tweet.favorite_count,
                  'retweet_count': tweet.retweet_count}
@@ -33,6 +27,11 @@ def sentiment(query, since, until, items):
     df['pos'] = df[df['polarity'] > 0]['polarity']
     df['neg'] = df[df['polarity'] < 0]['polarity']
     
+    df['polarity'] = df['polarity'].round(2)
+    df['subjectivity'] = df['subjectivity'].round(2)
+    df['pos'] = df['pos'].round(2)
+    df['neg'] = df['neg'].round(2)
+    
     df['date'] = df['date'].apply(lambda x:x.date())
     df['rts/likes'] = df['retweet_count'] / df['favorite_count']
     
@@ -41,3 +40,4 @@ def sentiment(query, since, until, items):
 
 
 df = sentiment()
+
