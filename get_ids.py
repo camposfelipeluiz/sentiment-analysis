@@ -1,7 +1,7 @@
 import tweepy
 import pandas as pd
 
-def get_ids(*users):
+def get_id(*users):
 
     consumer_key = ''
     consumer_secret = ''
@@ -11,14 +11,14 @@ def get_ids(*users):
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
 
-    screen_names = []
+    usuarios = []
     for user in users:
         user = api.get_user(str(user))._json
-        screen_names.append(user)
+        usuarios.append(user)
+        k = len(usuarios)
         
-        k = len(screen_names)
         for k in range(0,k):
-            name = usuarios[k]['screen_name']
+            nome = usuarios[k]['screen_name']
             ID = usuarios[k]['id']
-        
-       print(f'{name}: {ID}')
+            
+        print(f'{nome}: {ID}')
